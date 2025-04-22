@@ -25,10 +25,8 @@ const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZi
 const { item } = Astro.props;
 ---
 
-<Layout title=`${item.product}`>
-  <header>
-    <h1>{item.product}</h1>
-    <p>{item.price} kr</p>
+<Layout title={`${item.product}`}>
+  <div class="gridcontainer">
     <div class="images">
       {
         item.more_images.map((image) => {
@@ -37,46 +35,146 @@ const { item } = Astro.props;
       }
     </div>
 
-    <h2>Colors</h2>
-    <div class="colors">
-      {
-        item.colors.map((color) => {
-          return <ProductColor color={color} />;
-        })
-      }
+    <div>
+      <div class="heleteksten">
+        <h1>{item.product}</h1>
+        <p class="pris">{item.price} kr</p>
+        <p class="farve"><strong>Farve:</strong></p>
+
+        <div class="colors">
+          {
+            item.colors.map((color) => (
+              <ProductColor color={color} />
+            ))
+          }
+        </div>
+
+        <div class="size-container">
+          {
+            Object.entries(item.sizes)
+              .filter(([_, value]) => value === "true")
+              .map(([size]) => (
+                <p class="size-box">{size.toUpperCase()}</p>
+              ))
+          }
+        </div>
+        
+
+        <p class="choose-box">Vælg muligheder</p>
+
+        <h2>Beskrivelse</h2>
+        <p>{item.description}</p>
+
+        <ul class="tag-list">
+          {
+            item.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))
+          }
+        </ul>
+        
+
+        <h2>Detaljer</h2>
+        <p><strong>Indpakning:</strong> {item.packaging}</p>
+        <p><strong>Vægt:</strong> {item.weight}</p>
+        <p><strong>Materiale:</strong> {item.material}</p>
+        <p><strong>Fit:</strong> {item.fit}</p>
+        <p><strong>Vaskeanvisninger:</strong> {item.care}</p>
+
+        <h2>Fragt og retur</h2>
+        <p>Fri fragt til GLS pakkeshop pakkeboks ved køb over 499 kr.
+          GLS hjemmelevering koster 25 kr.
+          Erhvervslevering via GLS (25 kr).
+
+          Alle ordrer sendes inden for 24 timer på hverdage.
+
+          1-3 hverdages levering.
+
+          Der er udvidet returret på 30 dage. Læs mere
+          her</p>
+      </div>
     </div>
-    <h2>Description</h2>
-    <p>{item.description}</p>
-  </header>
+  </div>
 </Layout>
 
+
+
 <style>
-  header {
-    padding: 2rem;
-  }
-  h1,
-  h2 {
-    font-size: 1rem;
-  }
-  h2 {
-    text-transform: uppercase;
-  }
-  p {
-    max-width: 75ch;
-  }
-  img {
-    max-width: 100%;
-    
-  }
-  .images {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+h2 {
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+ul {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+.size-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.size-box {
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.choose-box {
+  width: fit-content;
+  padding: 10px 80px;
+  border: 1px solid black;
+  cursor: pointer;
+  margin: 70px auto;
+  font-size: 2rem;
+}
+.heleteksten {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.pris {
+  font-size: 1.7rem;
+  margin-top: 1rem;
+}
+@media (min-width: 800px) {
+  .gridcontainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    grid-template-columns: 1fr 1fr;
   }
-  .colors {
-    display: flex;
-    flex-direction: row;
+}
+.colors{
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  
+
+}
+.farve{
+  margin-top: 2rem;
+}
+.images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
