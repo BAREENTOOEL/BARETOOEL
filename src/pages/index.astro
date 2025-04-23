@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import ProductCard from "../components/ProductCard.astro";
 import Omcollab from "../components/Omcollab.astro";
+import Stortbillede from "../components/Stortbillede.astro";
 
 const url = "https://vkhdcigyohcrlzpxczlj.supabase.co/rest/v1/baretable";
 const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZraGRjaWd5b2hjcmx6cHhjemxqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQzNTU3NDQsImV4cCI6MjA1OTkzMTc0NH0.sSrGlLldiezgYIBy7NneE8l6q3d53yB7OIt3E3CoETw";
@@ -34,6 +35,9 @@ console.log("data", data);
     </div>
   </section>
 </Layout>
+<Stortbillede>
+  <img src="/public/assets/image14.png" alt="234234">
+</Stortbillede>
 
 <style>
  section {
